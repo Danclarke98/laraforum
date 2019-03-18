@@ -1,12 +1,19 @@
 @extends('layouts.front')
 
+
+@section('heading')
+   
+   <a class="btn btn-primary block" href="{{route('thread.create')}}">Create Thread</a>
+   <br>
+@endsection
+
 @section('content')
     
 
-   <h1>Threads</h1>
+   
 
    @include('thread.partials.threadlist')
-
+   
 
 
 @endsection

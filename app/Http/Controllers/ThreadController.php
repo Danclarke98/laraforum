@@ -12,6 +12,15 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     function _construct(){
+         return $this->middleware('auth')->except('index');
+     }
+
+
+
+
+
     public function index()
     {
         //
@@ -46,7 +55,9 @@ class ThreadController extends Controller
 
         ]);
 
-        Thread::create($request->all());
+
+        auth()->user()->threads()->create($request->all());
+
 
         return back()->withMessage('Thread Created');
 
@@ -83,6 +94,10 @@ class ThreadController extends Controller
      */
     public function update(Request $request, Thread $thread)
     {
+        if (auth()->user()->id==$thread->user_id){
+            abort(401,"unauthorized");
+        }
+        
         $this->validate($request,[
             'title'=>'required',
             'type'=>'required',
@@ -90,6 +105,7 @@ class ThreadController extends Controller
 
         ]);
 
+       
         $thread->update($request->all());
 
         return redirect()->route('thread.show',$thread->id)->withMessage('Thread Updated');
@@ -103,6 +119,9 @@ class ThreadController extends Controller
      */
     public function destroy(Thread $thread)
     {
+        if (auth()->user()->id==$thread->user_id){
+            abort(401,"unauthorized");
+        }
         $thread->delete();
         return redirect()->route('thread.index')->withMessage("Deleted");
     }

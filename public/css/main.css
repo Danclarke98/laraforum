@@ -1,0 +1,25 @@
+.content-heading{
+    margin-bottom: 5px;
+}
+
+.main-content-heading{
+    padding:0 20px;
+}
+
+.content-wrap{
+    padding-left: 10px;
+}
+
+.inline-it{
+    display: inline-block !important;
+}
+
+.block {
+    display: block;
+    width: 100%;
+    
+    padding: 10px 20px 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+  }

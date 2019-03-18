@@ -3,7 +3,7 @@
 @section('content')
     
 
-   <h1>test</h1>
+  @include('thread.partials.threadlist')
 
 
 

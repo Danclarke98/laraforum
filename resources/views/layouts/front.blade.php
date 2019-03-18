@@ -16,22 +16,59 @@
 
     <body>
 
-    @include('layouts.partials.navbar')
-
-
-
+        @include('layouts.partials.navbar')
+        
 
         <div class="container">
-            @yield('content')
+
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-3"><h2>Category</h2></div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-6"><h3 class="main-content-heading">@yield('heading')</h3>
+                                </div>
+                                <div class="col-md-6 col-md-3">
+                                    <a class="btn btn-primary" href="{{route('thread.create')}}">Create Thread</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ul class="list-group">
+                                <a href="{{route('thread.index')}}" class="list-group-item">
+                                    <span class="badge">14</span>
+                                      All Threads
+                                </a>
+                                 <a href="#" class="list-group-item">
+                                         <span class="badge">2</span>
+                                           PHP
+                                  </a>
+                             </ul>
+                        </div>
+
+                        <div class="col-md-9">       
+                                <div class="content-wrap well">
+                                        @yield('content')
+                                </div>
+                        </div>
+            
+                    </div>
+                  
+            
+                 </div>
+
+
+
+
+
+
         </div>
        
-
-
-
     </body>
-
-
-
-
 
 </html>

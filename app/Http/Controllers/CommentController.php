@@ -60,13 +60,23 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        $this->validate($request,[
-            'body' => 'required'
-        ]);
+        if($user = Auth::user()){
+            if($comment->user_id == auth()->user()->id){
 
-        $comment->update($request->all());
+                $this->validate($request,[
+                    'body' => 'required'
+                ]);
+    
+                $comment->update($request->all());
+    
+                return back()->withMessage('Edited');
 
-        return back()->withMessage('Edited');
+
+            }
+               
+            abort('401');
+        }
+        abort('401');
     }
 
     /**
@@ -77,11 +87,15 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        if($comment->user_id !== auth()->user()->id);
-            abort('401');
+        if($user = Auth::user()){
+            if (auth()->user()->id==$comment->user_id){
+                $comment->delete();
 
-        $comment->delete();
+                return back()->withMessage('Deleted Comment');
+            }
+        }  
 
-        return back()->withMessage('Deleted Comment');
+        return back()->withMessage('Please Login');
+    
     }
 }

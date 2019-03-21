@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use Illuminate\Http\Request;
+use Auth;
 
 class ThreadController extends Controller
 {
@@ -48,6 +49,7 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+        if($user = Auth::user()){
         $this->validate($request,[
             'title'=>'required',
             'type'=>'required',
@@ -60,7 +62,8 @@ class ThreadController extends Controller
 
 
         return back()->withMessage('Thread Created');
-
+        }
+        return back()->withMessage('Please login to create threads');
     }
 
     /**
@@ -95,20 +98,23 @@ class ThreadController extends Controller
     public function update(Request $request, Thread $thread)
     {
         if (auth()->user()->id==$thread->user_id){
-            abort(401,"unauthorized");
+            $this->validate($request,[
+                'title'=>'required',
+                'type'=>'required',
+                'content'=>'required'
+    
+            ]);
+    
+           
+            $thread->update($request->all());
+    
+    
+    
+            return redirect()->route('thread.show',$thread->id)->withMessage('Thread Updated');
         }
         
-        $this->validate($request,[
-            'title'=>'required',
-            'type'=>'required',
-            'content'=>'required'
 
-        ]);
-
-       
-        $thread->update($request->all());
-
-        return redirect()->route('thread.show',$thread->id)->withMessage('Thread Updated');
+        abort(401,"unauthorized");
     }
 
     /**
@@ -120,9 +126,10 @@ class ThreadController extends Controller
     public function destroy(Thread $thread)
     {
         if (auth()->user()->id==$thread->user_id){
-            abort(401,"unauthorized");
+            $thread->delete();
+            return redirect()->route('thread.index')->withMessage("Deleted");
         }
-        $thread->delete();
-        return redirect()->route('thread.index')->withMessage("Deleted");
+        
+        abort(401,"unauthorized");
     }
 }

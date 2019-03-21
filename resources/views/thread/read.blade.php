@@ -21,6 +21,8 @@
                  <input class="btn btn-danger" type="submit" value="Delete">
     
                 </form>
+
+                
     
          </div>
         
@@ -32,6 +34,24 @@
         @foreach ($thread->comments as $comment)
             <h4>{{$comment->body}}</h4>
             <lead>{{$comment->user->name}}</lead>
+
+            @if (auth()->user()!=null)
+            @if (auth()->user()->id==$thread->user_id)
+                <div class="actions">
+                    {{-- <a href="{{route('comment.edit',$thread->id)}}" class="btn btn-info">Edit</a> --}}
+            
+                        <form action="{{route('comment.destroy',$comment->id)}}" method="POST">
+                        {{ csrf_field() }}
+                        {{method_field('DELETE')}}
+                        <input class="btn btn-danger" type="submit" value="Delete">
+            
+                        </form>
+
+            
+                </div>
+            @endif
+            @endif
+
         @endforeach
     </div>
     <div class="comment-form">

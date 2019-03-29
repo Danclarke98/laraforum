@@ -22,3 +22,6 @@ Route::resource('/thread', 'ThreadController');
 Route::resource('comment', 'CommentController',['only'=>['update','destroy']]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('comment/create/{thread}','CommentController@addThreadComment')->name('threadcomment.store');
+
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');

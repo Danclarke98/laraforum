@@ -44,4 +44,10 @@ return [
         ],
     ],
 
+    'github' => [
+        'client_id' => '8e70f8c7ab56d8841423',
+        'client_secret' => '1bd532ce4b48fa02711b26e49b74dcfd28bfac01',
+        'redirect' => 'http://laraforumbf.test/login/github/callback',
+    ],
+
 ];

@@ -7,6 +7,12 @@
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
+                <div style="width:50%;">
+                    {!! $totalUserChart->container() !!}
+                </div>
+               
+                
+                {!! $totalUserChart->script() !!}
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

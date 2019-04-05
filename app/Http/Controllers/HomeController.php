@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Charts;
+use App\Charts\StatChart;
+use App\User;
+use Auth;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalUserChart = new StatChart;
+        $totaluser = User::count();
+        $totalUserChart->labels(['Total Users']);
+        $totalUserChart->dataset('Users', 'bar', [$totaluser]);
+        return view('home', ['totalUserChart' => $totalUserChart]);
     }
 }

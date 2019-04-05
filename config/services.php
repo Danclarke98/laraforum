@@ -48,7 +48,7 @@ return [
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'http://laraforumbf.test/login/github/callback',
+        'redirect' => 'http://laraforumfinal.test/login/github/callback',
     ],
 
 ];

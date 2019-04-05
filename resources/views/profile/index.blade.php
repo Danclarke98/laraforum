@@ -9,6 +9,7 @@
             {{$user->name}}
         </h3>
 
+        <img src="{{ Auth::user()->avatar }}" height="64" width="64">
     </div>
 
 @endsection

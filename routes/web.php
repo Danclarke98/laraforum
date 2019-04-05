@@ -25,3 +25,5 @@ Route::post('comment/create/{thread}','CommentController@addThreadComment')->nam
 
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('/user/profile/{user}', 'UserProfileController@index')->name('user_profile');

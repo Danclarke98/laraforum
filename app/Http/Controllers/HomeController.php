@@ -7,6 +7,8 @@ use Charts;
 use App\Charts\StatChart;
 use App\User;
 use Auth;
+use App\Thread;
+use App\Comment;
 
 
 class HomeController extends Controller
@@ -18,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this;
     }
 
     /**
@@ -30,8 +32,24 @@ class HomeController extends Controller
     {
         $totalUserChart = new StatChart;
         $totaluser = User::count();
-        $totalUserChart->labels(['Total Users']);
-        $totalUserChart->dataset('Users', 'bar', [$totaluser]);
+        $totalThread = Thread::count();
+        $totalComment = Comment::count();
+
+        $totalUserChart->labels(['Data Count']);
+        $totalUserChart->dataset('Users', 'bar', [$totaluser])->backgroundColor([
+            '#00a6eb', 
+        ]);
+        $totalUserChart->dataset('Threads', 'bar', [$totalThread])->backgroundColor([
+            '#f71118', 
+        ]);;
+        $totalUserChart->dataset('Comments', 'bar', [$totalComment])->backgroundColor([
+            '#fff60c', 
+        ]);;
+        
+        
+       
+
+
         return view('home', ['totalUserChart' => $totalUserChart]);
     }
 }
